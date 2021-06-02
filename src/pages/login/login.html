@@ -1,0 +1,28 @@
+<ion-header no-border>
+  <ion-navbar no-border>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <img src="assets/img/vtube-logo-gray.svg">
+
+
+
+  <form class="loginCred" (ngSubmit)="login()" validate>
+    <p *ngIf="isCredentialsIncorrect">{{'LOGIN_MSG1'|translate}}</p>
+    <p *ngIf="didLoginHadErrors">{{'LOGIN_MSG2'|translate}}</p>
+    <p *ngIf="freeUserError">{{'LOGIN_MSG3'|translate}}</p>
+    <ion-item>
+      <ion-label floating>{{'EMAIL'|translate}}</ion-label>
+      <ion-input type="email" required autofocus name="email" [(ngModel)]="loginForm.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'PASSWORD'|translate}}</ion-label>
+      <ion-input type="password" required name="password" [(ngModel)]="loginForm.password"></ion-input>
+    </ion-item>
+    <button ion-button type="submit"><b>{{'LOGIN'|translate}}</b></button>
+    <div class="forgot" (click)="forgotPass()">{{'FORGOT_PASS'|translate}}</div>
+  </form>
+</ion-content>

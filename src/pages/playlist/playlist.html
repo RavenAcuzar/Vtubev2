@@ -1,0 +1,37 @@
+<ion-header no-border>
+
+  <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+
+  <div no-padding class="playlist-Banner">
+    <div class="playlist-title">
+      <h1><b>{{'PLAYLIST'|translate}}</b></h1>
+    </div>
+    <div class="playbutton" (click)="playAll()">
+      <ion-icon name="md-play"></ion-icon>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content padding>
+  <div class="container-videos">
+    <div class="video-box" *ngFor="let pv of playlistVideos">
+      <img [src]="pv.image" (click)="playVideo(pv)" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';" />
+      <div class="info" (click)="playVideo(pv)">
+        <h2>{{pv.title}}</h2>
+        <p>
+          <span class="channel">{{pv.duration}}</span><br/>
+          <span class="views">{{pv.views}} {{'VIEWS'|translate}}</span>
+          <!-- <span>&nbsp;&bull;&nbsp;</span>
+          <span class="points">{{pv.points}} {{'VIEWS'|translate}}</span> -->
+        </p>
+      </div>
+      <button ion-button padding-bottom="false" (click)="showPopover($event, pv)">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </div>
+  </div>
+</ion-content>

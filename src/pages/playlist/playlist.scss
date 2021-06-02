@@ -1,0 +1,132 @@
+page-playlist {
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors,primary ) !important;
+        border:none !important;
+    }
+    ion-header [class^="toolbar"] {
+        min-height: 40px;
+        padding: 0;
+        color: map-get($colors, primary);
+    }
+    ion-content [class^="fixed-content"] [class^="scroll-content"]{
+        margin-top: 13vh;
+    }
+     
+    ion-title{
+        margin-top: 12px;
+    }
+
+    ion-navbar {
+        min-height: 6vh;
+        padding: 0;
+        button{
+            color: map-get($colors, light ) !important;
+        }
+    }
+
+
+    .playlist-Banner{
+        position: relative;
+        background-image: url('../assets/img/playlist-banner.png');
+        height: 20vh;
+        background-size: 100%;
+        .playlist-title{
+            z-index: 1;
+            position: absolute;
+            top: 27px;
+            left: 30px;
+            color: map-get($colors,light);
+        }
+        .playbutton{
+            z-index: 1;
+            position: absolute;
+            right: 28px;
+            bottom: -22px;
+            height: 15vw;
+            width: 15vw;
+            font-size: 4.5vh;
+            text-align: center;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+            border-radius: 50%;
+            background-color: map-get($colors,primary );
+            color: white;
+            ion-icon{
+                font-size: 1.2em;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: fit-content;
+                width: fit-content;
+                margin: auto;
+            }
+        }
+    }
+    .playlist-Banner::after{
+        display: block;
+        position: relative;
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, black 120%);
+        height: 20vh;
+        width: 100%;
+        content: '';
+    }
+    .container-videos {
+            > :not(:last-child) {
+                padding-bottom: 15px;
+            }
+
+            .video-box {
+                display: flex;
+                flex-direction: row;
+                flex-basis: content;
+                
+                > :not(:last-child) {
+                    margin-right: 10px;
+                }
+
+                img {
+                    width: 40vw;
+                    contain: none;
+                    align-self: flex-start;
+                }
+
+                .info {
+                    flex-grow: 1;
+                    color: white;
+                    h2 {
+                        font-size: 12pt;
+                        margin: 0 0 5px 0;
+                        font-weight: normal;
+                    }
+                    p {
+                        color: #dcdcdc;
+                        font-size: 10pt;
+                        margin: 0;
+
+                        > span {
+                            display: inline-block;
+
+                            &.points {
+                                border-radius: 2px;
+                                padding: 3px 3px 1px 3px;
+                                background-color: map-get($colors, primary);
+                                font-size: 9pt;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    padding: 0px 10px 5px 10px;
+                    font-size: 15pt;
+                    color: white;
+                    background-color: transparent;
+            
+                    box-shadow: none;
+                    -webkit-box-shadow: none;
+                }
+            }
+        }
+}

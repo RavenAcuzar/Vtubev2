@@ -1,0 +1,38 @@
+<ion-header no-border>
+
+  <ion-navbar >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+  <div no-padding class="playlist-Banner">
+    <div class="playlist-title">
+      <h1><b>{{'DOWNLOAD'|translate}}</b></h1>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content padding>
+  <div class="container-videos">
+    <div class="video-box" *ngFor="let dv of downloadedVideos">
+      <div class="image-holder">
+        <img [src]="dv.imageUrl" (click)="playVideo(dv)"/>
+        <!-- TODO: FIX THE STyLE OF THIS SHIT PROGRESS BAR -->
+        <progress max="100" *ngIf="dv.isInProgress" value="{{dv.progress.progress}}" [hidden]="!dv.progress.isDownloading"></progress>
+      </div>
+      <div class="info" (click)="playVideo(dv)">
+        <h2>{{dv.title}}</h2>
+        <p>
+          <span class="channel">{{dv.channelName}}</span><br/>
+          <span class="views">{{dv.time}}</span>
+        </p>
+      </div>
+      <button ion-button padding-bottom="false" (click)="deleteEntry(dv)" [disabled]="dv.isInProgress">
+        <ion-icon name="md-trash"></ion-icon>
+      </button>
+    </div>
+  </div>
+  <div class="downloadsFooter">
+    <p>{{'DL_MSG'|translate}}</p>
+  </div>
+</ion-content>

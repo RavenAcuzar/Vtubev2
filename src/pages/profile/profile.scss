@@ -1,0 +1,82 @@
+page-profile {
+
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors, primary ) !important;
+    }
+    [class^="header"]::after{
+        background-image: none;
+    }
+
+    ion-header [class^="toolbar"] {
+        min-height: 40px;
+        color: map-get( $colors, light );
+    }
+
+    
+    ion-title{
+        margin-top: 12px;
+    }
+
+    ion-navbar {
+        min-height: 6vh;
+        padding: 0;
+        button{
+            color: map-get( $colors, light ) !important;   
+        }
+    }
+
+     
+    ion-list {
+        
+        > ion-list-header[class^="item"]{
+            margin-bottom: 0 !important;
+            background-color: transparent !important;
+            border-top: none !important;
+            color: map-get($colors,light) !important;
+        }
+        >ion-item{
+            background-color: transparent !important;
+            >.item-inner, .input-wrapper ion-label{
+                color: rgba(255, 255, 255, 0.767)!important;
+            }
+            
+        }
+
+    }
+    
+
+    .profBanner{
+        position: relative;
+        background-image: url('../assets/img/profBanner.png');
+        background-size: cover;
+        height: 30vh;
+        margin-top: -13px;
+    }
+    .avatar{
+        position: absolute;
+        bottom:-20px;
+        top: unset;
+        right: 30vw;
+        width: 40vw;
+        height: 40vw;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+        box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2);
+    }
+    .profileName{
+        margin: 3vh;
+        text-align: center;
+        color: map-get($colors, light);
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        >h3{
+            margin-bottom: 0rem;
+        }
+        >p{
+            color:map-get($colors, light);
+        }
+    }
+
+}

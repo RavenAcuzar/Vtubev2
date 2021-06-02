@@ -1,0 +1,47 @@
+page-fallback {
+     ion-header {
+        z-index: 20;
+
+        > ion-navbar {
+            > div.toolbar-background {
+                background: transparent !important;
+                border: none !important;
+            }
+            button{
+                color: map-get($colors, light ) !important;
+            }
+        }
+    }
+    [class^="header"]::after{
+        background-image: none;
+    }
+    > ion-content {
+        
+        img{
+            position: absolute;
+            top: 16vw;
+            right: 0;
+            left: 0;
+            width: 62vw;
+            max-width: 400px;
+            margin: auto;
+            opacity: 0.6;
+        }
+        .loginCred{
+            margin-top: 55vh;
+            padding: 0px 6vw;
+            text-align: center;
+            color: map-get($colors,light)!important;
+            >button{
+                border-radius: 13px;
+                width: 60%;
+                padding: 21px 0px;
+                margin-top: 15vh;
+                background-color: map-get($colors,primary);
+            }
+        }
+        > div.scroll-content, > div.fixed-content {
+            margin-top: 0 !important;
+        }
+    }
+}

@@ -1,0 +1,162 @@
+<!--
+  Generated template for the ChannelsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar no-border-bottom >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{'CHANNELS'|translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="searchThing()"> 
+      <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="channelType" mode="md">
+      <ion-segment-button value="myChannel">
+        {{'MY_CHANNEL'|translate}}
+      </ion-segment-button>
+      <ion-segment-button value="allChannels">
+        {{'ALL_CHANNEL'|translate}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div [ngSwitch]="channelType">
+    <!--MY CHANNEL SECTION  -->
+    <div *ngSwitchCase="'myChannel'">
+      <div padding class="channelPlaceholder" [hidden]='!isLoggedOut'>
+        <!-- put global boolean login variable here -->
+        <img src="assets/img/vtube-logo-gray.svg" />
+        <h3>{{'CHANNEL_NO_LOGIN'|translate}}</h3>
+      </div>
+      
+      <div [hidden]='isLoggedOut' *ngIf="userHasChannel">
+        <ion-card>
+          <div class="channelMain">
+            <img [src]="channelCover" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/ChannelBannerImage.jpg';"/>
+            <img [src]="userChannel.finalAvatarUrl" class="channelDetail" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';"/>
+            <div class="channelViews">
+              <h6>{{userChannel.chViews}}</h6>
+              <ion-icon name="md-eye"></ion-icon>
+            </div>
+            <div class="channelVids">
+              <h6>{{userChannel.chVidsCount}}</h6>
+              <ion-icon name="md-videocam"></ion-icon>
+            </div>
+          </div>
+          <ion-item class="channelLabel">
+            <h2 [innerHTML]="userChannel.name"></h2>
+            <p>{{userChannel.chFollowers}} {{'FOLLOWERS'|translate}}</p>
+            <div item-end icon-only (click)='seeDesc()' class="showDescBtn">
+              <ion-icon name={{descLabel}}></ion-icon>
+            </div>
+            <div [hidden]="!isDescriptionShown" style="margin-top:15px;">
+              <h6>{{'DESCRIPTION'|translate}}</h6>
+              <p [innerHTML]="userChannel.description"></p>
+            </div>
+          </ion-item>
+        </ion-card>
+        <div padding>
+          <h4>{{'UPLOADS'|translate}}</h4>
+          <h1 style="opacity:0.5; text-align:center; margin-top:100px; color:rgba(255, 255, 255, 0.76);" [hidden]="hasVids">{{'CHANNEL_NO_VID'|translate}}</h1>
+          <ion-card *ngFor="let vids of channelVids" [hidden]="!hasVids">
+            <div class="parent" (click)="playVideo(vids.id, vids.videoPrivacy)">
+              <img src="{{vids.image}}" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';"/>
+              <div class="duration">
+                <ion-badge color="duration">{{vids.time}}</ion-badge>
+              </div>
+              <div class="vidpoints">
+                <ion-chip color="secondary">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-label>{{vids.points}} {{'POINTS'|translate}}</ion-label>
+                </ion-chip>
+              </div>
+              <div class="vidplay">
+                <ion-icon name="play"></ion-icon>
+              </div>
+            </div>
+
+            <ion-item>
+              <ion-avatar item-start>
+                <img [src]="userChannel.finalAvatarUrl" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';"/>
+              </ion-avatar>
+              <h2>
+                <ion-icon name="lock" color="light" [hidden]="vids.noLock"></ion-icon> {{vids.title}}</h2>
+              <p>{{vids.channelName}} <br> {{vids.views}} {{'VIEWS'|translate}}</p>
+              <p>
+                <ion-icon name="globe"></ion-icon>: {{vids.language}}</p>
+              <div item-end icon-only (click)="presentPopover($event, vids)">
+                <ion-icon name="md-more"></ion-icon>
+              </div>
+            </ion-item>
+          </ion-card>
+          <ion-infinite-scroll (ionInfinite)="loadMoreChannelVids($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more videos...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </div>
+      </div>
+      <div padding class="channelPlaceholder" [hidden]='isLoggedOut' *ngIf="!userHasChannel">
+        <!-- put global boolean login variable here -->
+        <img src="assets/img/vtube-logo-gray.svg" />
+        <h3>{{'CHANNEL_NO_CHANNEL'|translate}}</h3>
+      </div>
+    </div>
+
+    <!--ALL CHANNELS SECTION  -->
+    <div padding *ngSwitchCase="'allChannels'" class="all-channels">
+      <div class="divider">
+        <h6>{{'FOLLOWING'|translate}}</h6>
+        <ion-scroll scrollX="true" direction="x">
+          <div class="channelBlock" (click)="goToChannelView(channel.channel_id)" *ngFor="let channel of followingChannels" [hidden]="isLoggedOut">
+            <img [src]="channel.thumbnail" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';" />
+            <div>
+              <b>{{channel.channelName}}</b><br> {{channel.followers}} {{'FOLLOWERS'|translate}}
+            </div>
+          </div>
+          <div style="text-align: center; color: rgba(255, 255, 255, 0.39); margin-top: 33px; white-space:normal;" [hidden]="!isLoggedOut">
+            <h5>Please log in to view Following Channels list.</h5>
+          </div>
+        </ion-scroll>
+      </div>
+      <div class="divider">
+        <h6>{{'RECOMM'|translate}}</h6>
+        <ion-scroll scrollX="true" direction="x">
+          <div class="channelBlock" (click)="goToChannelView(channel.id)" *ngFor="let channel of recommendedChannels">
+            <img [src]="channel.thumbnail" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';" />
+            <div>
+              <b>{{channel.title}}</b><br> {{channel.chFollowers}} {{'FOLLOWERS'|translate}}
+            </div>
+          </div>
+          <div class="channelBlockMore" (click)="loadMoreRecommended()" [hidden]="!hideMoreRecommBtn">
+            <h3>{{'MORE'|translate}}</h3>
+          </div>
+        </ion-scroll>
+      </div>
+      <div class="divider">
+        <h6>{{'ALL_CHA'|translate}}</h6>
+        <ion-scroll scrollX="true" direction="x">
+          <div class="channelBlock" (click)="goToChannelView(channel.id)" *ngFor="let channel of allChannels">
+            <img [src]="channel.thumbnail" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';" />
+            <div>
+              <b>{{channel.title}}</b><br> {{channel.chFollowers}} {{'FOLLOWERS'|translate}}
+            </div>
+          </div>
+          <div class="channelBlockMore" (click)="loadMoreChannel()" >
+            <h3>{{'MORE'|translate}}</h3>
+          </div>
+        </ion-scroll>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

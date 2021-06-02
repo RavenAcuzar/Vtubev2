@@ -1,0 +1,87 @@
+page-search {
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors,light );
+        border:none !important;
+    }
+    ion-header [class^="toolbar"] {
+        min-height: 40px;
+        padding: 0;
+        color: map-get($colors, primary);
+    }
+    ion-segment [class^="segment"]{
+        color: map-get($colors, primary) !important;
+        border-color: map-get($colors, primary) !important;
+        max-width: 100% !important;
+    }
+    ion-content [class^="fixed-content"] [class^="scroll-content"]{
+        margin-top: 13vh;
+    }
+    ion-title{
+        margin-top: 12px;
+    }
+
+    ion-navbar {
+        min-height: 6vh;
+        padding: 0;
+    }
+
+    .container-videos {
+        
+            padding-bottom: 15px;
+            .video-box {
+                display: flex;
+                flex-direction: row;
+                flex-basis: content;
+                
+                > :not(:last-child) {
+                    margin-right: 10px;
+                }
+
+                img {
+                    width: 40vw;
+                    contain: none;
+                    flex-shrink: 0;
+                    height: auto;
+                    align-self: flex-start;
+                }
+
+                .info {
+                    flex-grow: 1;
+                    color: map-get($colors, light);
+                    h2 {
+                        font-size: 12pt;
+                        margin: 0 0 5px 0;
+                        font-weight: normal;
+                    }
+                    p {
+                        color: #dcdcdc;
+                        font-size: 10pt;
+                        margin: 0;
+
+                        > span {
+                            display: inline-block;
+
+                            &.points {
+                                border-radius: 2px;
+                                padding: 3px 3px 1px 3px;
+                                background-color: map-get($colors, primary);
+                                font-size: 9pt;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    padding: 0px 10px 5px 10px;
+                    font-size: 15pt;
+                    color: map-get($colors, light);
+                    background-color: transparent;
+            
+                    box-shadow: none;
+                    -webkit-box-shadow: none;
+                }
+            }
+        }
+
+}

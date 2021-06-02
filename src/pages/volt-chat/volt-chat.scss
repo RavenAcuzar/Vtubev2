@@ -1,0 +1,97 @@
+page-volt-chat {
+
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors,primary ) !important;
+        border:none !important;
+    }
+    ion-header [class^="toolbar"] {
+        min-height: 40px;
+        padding: 0;
+        color: map-get($colors, light);
+        img{
+            height: 43px;
+        }
+    }
+    ion-content [class^="fixed-content"] [class^="scroll-content"]{
+        margin-top: 13vh;
+    }
+    ion-content {
+        background-image: url("../assets/img/chat-bg.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    ion-navbar {
+        min-height: 6vh;
+        padding: 0;
+        button{
+            color: map-get($colors, light) !important;
+        }
+    }
+
+    input {
+        height: 100% !important;
+        width: 100% !important;
+        border: 1px #07377c solid;
+        border-radius: 5px;
+        padding-left: 10px;
+    }
+
+    .chat-bubble {
+        border-radius: 10px;
+        display: inline-block;
+        padding: 10px 18px;
+        position: relative;
+        margin: 10px;
+        max-width: 80%;
+    }
+
+    .chat-bubble:before {
+        content: "\00a0";
+        display: block;
+        height: 16px;
+        width: 9px;
+        position: absolute;
+        bottom: -7.5px;
+    }
+    
+    .chatConv.left{
+        display: flex;
+        flex-direction: row;
+    }
+    .chatConv.right{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .chat-bubble.left {
+        background-color: map-get($colors, primary);
+        font-size: 11pt;
+        color: map-get($colors , light );
+        border-bottom-left-radius: 0px;
+        max-width: 55vw;
+    }
+
+
+    .chat-bubble.right {
+        background-color: #b3b3b3;
+        font-size: 11pt;
+        color: black;
+        border-bottom-right-radius: 0px;
+        max-width: 55vw;
+    }
+
+    .message-detail{
+        p{
+            -webkit-margin-after: 0px;
+            font-size: 8pt;
+        }
+    }
+    .content-center{
+        align-self: flex-end;
+        >img{
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+        }
+    }
+}

@@ -1,0 +1,119 @@
+<!--
+  Generated template for the ChannelPrevPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+     <!-- <ion-title>{{'CHANNEL'|translate}}</ion-title> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!-- <div class="channelMain">
+        <img src="assets/img/channel-banner.png"/>
+        <div class="channelDetail">
+          <img src="assets/img/avatarChannel.png"/>
+        </div>
+        <div class="channelDetails">
+            <h6>CHANNEL NAME</h6>
+            <p>321321 Followers</p>
+          </div>
+        <div class="channelViews">
+          <h6>99999</h6>
+          <ion-icon name="md-eye"></ion-icon>
+        </div>
+        <div class="channelVids">
+          <h6>99999</h6>
+          <ion-icon name="md-videocam"></ion-icon>
+        </div>
+        <ion-icon name={{descLabel}} (click)='seeDesc()'></ion-icon>
+        <div class="followChannel">
+      <button ion-button round outline class="btn-follow">
+        <span>Follow</span>
+      </button>
+    </div>
+
+      </div>
+      <div class="details">
+          <div padding [hidden]="!isDescriptionShown">
+            <h6>Description</h6>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+          </div>
+      </div> -->
+  <ion-card>
+    <div class="channelMain">
+      <img [src]="channelCover" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/ChannelBannerImage.jpg';"/>
+      <img [src]="channelDetail.thumbnail" class="channelDetail"  onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';"/>
+      <button ion-button round outline class="btn-follow" (click)="followChannel()" *ngIf="!isFollowing">
+        <span>20PTS {{'FOLLOW'|translate}}</span>
+      </button>
+      <button ion-button round outline class="btn-follow" (click)="unfollowChannel()" *ngIf="isFollowing">
+        <span>{{'UNFOLLOW'|translate}}</span>
+      </button>
+      <div class="channelViews">
+        <h6>{{channelDetail.chViews}}</h6>
+        <ion-icon name="md-eye"></ion-icon>
+      </div>
+      <div class="channelVids">
+        <h6>{{channelDetail.chVidsCount}}</h6>
+        <ion-icon name="md-videocam"></ion-icon>
+      </div>
+    </div>
+    <ion-item class="channelLabel">
+      <h2 [innerHTML]="channelDetail.name"></h2>
+      <p>{{channelDetail.chFollowers}} {{'FOLLOWERS'|translate}}</p>
+      <div item-end icon-only (click)='seeDesc()' class="showDescBtn">
+        <ion-icon name={{descLabel}}></ion-icon>
+      </div>
+      <div [hidden]="!isDescriptionShown" style="margin-top:15px;">
+        <h6>{{'DESCRIPTION'|translate}}</h6>
+        <p [innerHTML]="channelDetail.description" ></p>
+      </div>
+    </ion-item>
+  </ion-card>
+
+  <div padding>
+    <h4>{{'UPLOADS'|translate}}</h4>
+    <h1 style="opacity:0.5; text-align:center; margin-top:100px;" [hidden]="hasVids">{{'CHANNEL_NO_VID'|translate}}</h1>
+    <ion-card *ngFor="let vids of channelVids" [hidden]="!hasVids">
+      <div class="parent" (click)="playVideo(vids.id, vids.videoPrivacy)">
+        <img src="{{vids.image}}" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';"/>
+        <div class="duration">
+          <ion-badge color="duration">{{vids.time}}</ion-badge>
+        </div>
+        <div class="vidpoints">
+          <ion-chip color="secondary">
+            <ion-icon name="star"></ion-icon>
+            <ion-label>{{vids.points}} {{'POINTS'|translate}}</ion-label>
+          </ion-chip>
+        </div>
+        <div class="vidplay">
+          <ion-icon name="play"></ion-icon>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-avatar item-start>
+          <img [src]="channelDetail.thumbnail" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';" />
+        </ion-avatar>
+        <h2>
+          <ion-icon name="lock" color="light" [hidden]="vids.noLock"></ion-icon> {{vids.title}}</h2>
+        <p>{{vids.channelName}} <br> {{vids.views}} {{'VIEWS'|translate}}</p>
+        <p>
+          <ion-icon name="globe"></ion-icon>: {{vids.language}}</p>
+        <div item-end icon-only (click)="presentPopover($event, vids)">
+          <ion-icon name="md-more"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-card>
+    <ion-infinite-scroll (ionInfinite)="loadMoreChannelVids($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more videos...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

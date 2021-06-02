@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <p>{{'CHAT'|translate}}</p>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content #content padding>
+  <div *ngFor="let msgEntry of conversation">
+    <p [hidden]="msgEntry.selected" style="font-size:8pt; text-align:center;">{{msgEntry.dateSentStr}}</p>
+    <div class="chatConv" [class.left]="msgEntry.sender === 'Volt'" [class.right]="msgEntry.sender !== 'Volt'" (click)="msgEntry.selected = !msgEntry.selected">
+      <div class="content-center">
+        <img [src]="msgEntry.senderImageUrl">
+      </div>
+      <div class="chat-bubble" [class.left]="msgEntry.sender === 'Volt'" [class.right]="msgEntry.sender !== 'Volt'">
+        <div>{{msgEntry.message}}</div>
+        <div class="message-detail">
+          <p style="text-align:left;"><b>{{msgEntry.sender}}</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <input type="text" placeholder="Message..." [(ngModel)]="message">
+        </ion-col>
+        <ion-col col-2 style="text-align:center;">
+          <ion-buttons>
+            <button ion-button icon-only (click)="sendMessage()"><ion-icon name="md-paper-plane"></ion-icon></button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

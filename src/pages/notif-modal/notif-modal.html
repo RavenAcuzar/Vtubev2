@@ -1,0 +1,15 @@
+<!--
+  Generated template for the NotifModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <ion-item (click)="goToPage(notifiaction.data)" text-wrap>
+    <ion-avatar item-start>
+      <img [src]="notifiaction.thumbnail" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';">
+    </ion-avatar>
+    <h2>New Video Uploaded!</h2>
+    <h3>{{notifiaction.message}}</h3>
+  </ion-item>
+  </ion-content>

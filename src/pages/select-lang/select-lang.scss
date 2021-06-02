@@ -1,0 +1,45 @@
+page-select-lang {
+    ion-header{
+        div[class*="toolbar-background"]{
+            background: transparent !important;
+        }
+        button{
+            span{
+                color: map-get($colors, light );
+            }
+        }
+    }
+    ion-content{
+        >div[class*="-content"]{
+            margin-top: 0 !important;
+        }
+    }
+    ion-label{
+        text-align: center;
+        font-size: 4vw;
+        color: white;
+    }
+    ion-list{
+        margin: auto !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 87vh;
+    }
+    .menuItems.activated{
+        background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    .menuItems{
+        background-color: transparent !important;
+        &.item-block > .item-inner{
+            border-bottom: 0;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-top: 1.5vh;
+            margin-bottom: 1.5vh;
+        }
+    }
+}

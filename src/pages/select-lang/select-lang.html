@@ -1,0 +1,52 @@
+<!--
+  Generated template for the SelectLangPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar >
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce>
+    <div ion-fixed style="z-index: 0;">
+        <img style="height:100vh; object-fit:cover;" src="./assets/img/bg-select-lang.png" />
+      </div>
+    <ion-list radio-group no-lines >
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('en')">
+          <ion-label>{{ 'ENGLISH' | translate }}</ion-label>
+        </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('ar')">
+            <ion-label>{{'ARABIC' | translate}}</ion-label>
+          </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('id')">
+          <ion-label>{{'BAHASA' | translate }}</ion-label>
+        </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('my')">
+            <ion-label>{{'BURMESE' | translate}}</ion-label>
+          </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('fr')">
+          <ion-label>{{'FRENCH' | translate}}</ion-label>
+        </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('ru')">
+          <ion-label>{{'RUSSIAN' | translate}}</ion-label>
+        </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('si')">
+            <ion-label>{{'SINHALA' | translate}}</ion-label>
+          </a>
+          <a ion-item class="menuItems" detail-none (click)="segmentChanged('ta')">
+              <ion-label>{{'TAMIL' | translate}}</ion-label>
+            </a>
+        <a ion-item class="menuItems" detail-none (click)="segmentChanged('tr')">
+          <ion-label>{{'TURKISH' | translate}}</ion-label>
+        </a>
+      </ion-list>
+</ion-content>
+

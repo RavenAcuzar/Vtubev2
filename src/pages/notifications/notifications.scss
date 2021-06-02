@@ -1,0 +1,33 @@
+page-notifications {
+    ion-title{
+        color: map-get($colors, primary) !important;
+    }
+    ion-item.wasRead{
+        background-color: #a0a0a0 !important;
+        color: white !important;
+      }
+      ion-item{
+        background-color: rgba(29, 29, 29, 0.8) !important;
+        color: white !important;
+        ion-label{
+            white-space: normal !important;
+        }
+      }
+      .no-items{
+          position: relative;
+          height: 100%;
+          width: 100%;
+          color: rgba(0,0,0,0.4);
+          ion-icon{
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+              text-align: center;
+              height: fit-content;
+              font-size: 50px;
+          }
+      }
+}

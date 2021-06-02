@@ -1,0 +1,149 @@
+<ion-header no-border>
+  <ion-navbar transparent mode="md">
+    <button ion-button menuToggle>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <!-- <video #videoPlayer ion-fixed controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" 
+    class="videoPlayer" [class.fullscreen]="isVideoFullscreen">
+    <source src="http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_20mb.mp4" type="video/mp4" />
+  </video> -->
+  <div [hidden]="!videoDetails" style="display: inline-block;" class="videoPlayer" ion-fixed >
+      <iframe ion-fixed #videoPlayer class="videoPlayer" [class.fullscreen]="isVideoFullscreen" [src]="safeVideoUrl"  allowfullscreen webkitallowfullscreen mozallowfullscreen (load)="loaded()"></iframe>
+  </div>
+  <div *ngIf="videoDetails" style="display: inline-block;"> 
+  
+  <div no-padding *ngIf="!isVideoFullscreen" #content>
+    <div class="vid-playlist" *ngIf="shouldPlayPlaylist">
+      <button (click)="playPrevVideo()" [disabled]="!hasPreviousVideoInPlaylist()">
+        <ion-icon class="icon" name="md-skip-backward"></ion-icon>
+      </button>
+      <button (click)="viewPlaylist()" class="small-icon">
+        <ion-icon class="icon" name="md-arrow-dropdown" *ngIf="!isDisplayingPlaylist"></ion-icon> 
+        <ion-icon class="icon" name="md-arrow-dropup" *ngIf="isDisplayingPlaylist"></ion-icon>
+      </button>
+      <button (click)="playNextVideo()" [disabled]="!hasNextVideoInPlaylist()">
+        <ion-icon class="icon" name="md-skip-forward"></ion-icon> 
+      </button>
+    </div>
+    <div class="container-videos vid-playlist-videos" [hidden]="!isDisplayingPlaylist">
+      <div class="video-box" [class.now-playing]="videoId === pv.bcid" *ngFor="let pv of playlistVideoIds; let idx = index">
+        <div class="info" (click)="playVideoInPlaylist(idx)">
+          <h4 *ngIf="videoId === pv.bcid">Now playing</h4>
+          <h2 [innerHTML]="pv.title"></h2>
+        </div>
+      </div>
+    </div>
+    <div class="vid-header">
+      <div class="vid-info">
+        <h1 [innerHTML]="videoDetails.title" ></h1>
+        <h4>{{videoDetails.views}} {{'VIEWS'|translate}}</h4>
+      </div>
+    </div>
+    <div class="vid-description">
+      <ion-icon name="md-globe"></ion-icon>&nbsp;{{videoDetails.language}}
+      <p [innerHTML]="videoDetails.description" ></p>
+    </div>
+    <div class="container-vid-actions">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="vid-actions">
+              <button ion-button icon-only block (click)="likeVideo()" [class.liked]="hasBeenLiked">
+                <ion-icon class="icon" name="md-heart"></ion-icon>
+              </button>
+              <span class="text">{{videoDetails.likes}}</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="vid-actions">
+              <button ion-button icon-only block (click)="downloadVideo()" [class.downloaded]="isVideoDownloaded || isStarting || isVideoDownloading" [disabled]="!isVideoDownloadable">
+                <ion-icon class="icon" name="md-download"></ion-icon>
+              </button>
+              <span class="text" *ngIf="isVideoDownloaded">Downloaded</span>
+              <span class="text" *ngIf="!isVideoDownloaded && !isStarting && !isVideoDownloading">Download</span>
+              <span class="text" *ngIf="!isVideoDownloaded && isStarting">Starting download...</span>
+              <span class="text" *ngIf="!isVideoDownloaded && isVideoDownloading">Downloading... ({{downloadProgress}}%)</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="vid-actions">
+              <button ion-button icon-only block (click)="addVideoToPlaylist()" [class.addedToPlaylist]="isVideoAddedToPlaylist">
+                <ion-icon class="icon" name="md-add"></ion-icon>
+              </button>
+              <span class="text" *ngIf="!isVideoAddedToPlaylist">Add to playlist</span>
+              <span class="text" *ngIf="isVideoAddedToPlaylist">Added to playlist</span>
+            </div>
+          </ion-col>
+          <ion-col *ngIf="isLoggedIn">
+            <div class="vid-actions">
+              <button ion-button icon-only block (click)="notify('add')" [class.liked]="hasNotified" *ngIf="!hasNotified" tooltip="Get notified when new video is uploaded by this channel!" expand="block" positionV="bottom" [active]="showTooltip">
+                <ion-icon class="icon" name="md-megaphone"></ion-icon>
+              </button>
+              <button ion-button icon-only block (click)="notify('remove')" [class.liked]="hasNotified" *ngIf="hasNotified">
+                <ion-icon class="icon" name="md-megaphone"></ion-icon>
+              </button>
+              <span class="text" *ngIf="hasNotified"> <ion-icon class="icon" name="md-checkmark"></ion-icon></span>
+              <span class="text" *ngIf="!hasNotified"> Notify Me!</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="vid-channel-info">
+      <img [src]="videoDetails.channelImage" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';"/>
+      <div class="info">
+        <h1>{{videoDetails.channelName}}</h1>
+        <h4>{{numOfChannelFollowers}} {{'FOLLOWERS'|translate}}</h4>
+      </div>
+      <button ion-button round class="btn-follow" (click)="followChannel()" *ngIf="!isFollowing" [disabled]="!isLoggedIn">
+        <span>{{'FOLLOW'|translate}}</span>
+      </button>
+      <button ion-button round class="btn-follow" (click)="unfollowChannel()" *ngIf="isFollowing" [disabled]="!isLoggedIn">
+        <span>{{'UNFOLLOW'|translate}}</span>
+      </button>
+    </div>
+    <div class="vid-related-vids" *ngIf="!isLoading && !shouldPlayPlaylist">
+      <h4>Related Videos</h4>
+      <div class="container-videos">
+        <div class="video-box" *ngFor="let rv of relatedVideoDetails">
+          <img [src]="rv.image" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';" (click)="rv.videoPrivacy == 'private'? isLoggedIn? goToVideo(rv.id) : redirectToFallback() : goToVideo(rv.id)" />
+          <div class="info" (click)="rv.videoPrivacy == 'private'? isLoggedIn? goToVideo(rv.id) : redirectToFallback() : goToVideo(rv.id)">
+            <h2><ion-icon name="md-lock" *ngIf="rv.videoPrivacy == 'private'"></ion-icon> {{rv.title}}</h2>
+            <p>
+              <span class="channel">{{rv.channelName}}</span><br/>
+              <span class="views">{{rv.views}} {{'VIEWS'| translate}}</span>
+              <span>&nbsp;&bull;&nbsp;</span>
+              <span class="points">{{rv.points}} {{'POINTS'|translate}}</span>
+            </p>
+          </div>
+          <button ion-button padding-bottom="false" (click)="presentPopover($event, rv)">
+            <ion-icon name="md-more"></ion-icon>
+          </button>
+        </div>
+        <button ion-button full clear color="primary" (click)="loadRelatedVideo()">LOAD MORE</button>
+      </div>
+    </div>
+    <div class="vid-comments" *ngIf="!isLoading">
+      <h4>Comments</h4>
+      <div class="comment-box" *ngIf="isLoggedIn">
+        <img [src]="userImageUrl" />
+        <ion-textarea class="txt-comment" placeholder="Leave a comment" [(ngModel)]="commentContent"></ion-textarea>
+        <button ion-button (click)="commentOnVideo()">Post</button>
+      </div>
+      <div class="container-comments">
+        <div class="comment-box uneditable" *ngFor="let vc of videoComments">
+          <img [src]="vc.avatar" />
+          <div class="content">
+            <h3>{{vc.CreatedBy}}</h3>
+            <p>{{vc.Comment}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>

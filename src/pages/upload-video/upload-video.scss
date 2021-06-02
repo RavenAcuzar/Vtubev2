@@ -1,0 +1,79 @@
+page-upload-video {
+
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors , primary ) !important;
+        border:none !important;
+    }
+    ion-header [class^="toolbar"] {
+        min-height: 40px;
+        padding: 0;
+        color: map-get($colors, light);
+    }
+    ion-title{
+        margin-top: 12px;
+    }
+
+    ion-navbar {
+        min-height: 6vh;
+        padding: 0;
+        button{
+            color: map-get($colors, light ) !important;
+        }
+    }
+
+    ion-list {
+        
+        > ion-list-header[class^="item"]{
+            margin-bottom: 0 !important;
+            background-color: transparent !important;
+            border-top: none !important;
+            color: map-get($colors , light ) !important;
+        }
+        >ion-item{
+            background-color: transparent !important;
+            .select-text,input, >.item-inner .input-wrapper ion-label{
+                color: map-get($colors , light ) !important;
+            } 
+        }
+
+    }
+    i{
+        color: map-get($colors , light );
+    }
+    .uploadProgress{
+        display: flex;
+        flex-direction: row;
+        progress-bar{
+            width: 90%;
+        }
+        ion-icon{
+            font-size: 30px;
+            align-self: center;
+        }
+    }
+
+    .tags-bottom{
+        opacity: 0.4;
+        margin: 3px 0px 0px 20px;
+        font-size: 7pt;
+    }
+
+    .vidUploadPrev{
+        width: 100%;
+        height: 90vw ;
+        max-height: 90vw;
+        background-color: black !important;
+    }
+    .btn-vidUpload{
+        opacity: 0.9;
+        border-radius: 30px;
+        width: 100%;
+        height: 60px;
+        span{
+            font-size: 12pt;
+        }
+    }
+    .scroll-content{
+        padding-bottom: 0px !important;
+    }
+}

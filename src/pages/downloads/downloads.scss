@@ -1,0 +1,127 @@
+page-downloads {
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors,primary ) !important;
+        border:none !important;
+    }
+    ion-header [class^="toolbar"] {
+        min-height: 40px;
+        padding: 0;
+        color: map-get($colors, primary);
+    }
+    ion-segment [class^="segment"]{
+        color: map-get($colors, primary) !important;
+        border-color: map-get($colors, primary) !important;
+        max-width: 100% !important;
+    }
+    ion-content [class^="fixed-content"] [class^="scroll-content"]{
+        margin-top: 13vh;
+    }
+     
+    ion-title{
+        margin-top: 12px;
+    }
+
+    ion-navbar {
+        min-height: 6vh;
+        padding: 0;
+        button{
+            color: map-get($colors, light ) !important;
+        }
+    }
+
+    .container-videos {
+            > :not(:last-child) {
+                padding-bottom: 15px;
+            }
+
+            .video-box {
+                display: flex;
+                flex-direction: row;
+                flex-basis: content;
+                
+                > :not(:last-child) {
+                    margin-right: 10px;
+                }
+
+                div.image-holder {
+                    width: 40vw;
+                    contain: none;
+                    display: flex;
+                    flex-shrink: 0;
+                    flex-direction: column;
+                    align-self: flex-start;
+                    align-items: stretch;
+
+                    progress {
+                        height: 6px;
+                        
+                    }
+                }
+
+                .info {
+                    flex-grow: 1;
+                    color: white;
+                    h2 {
+                        font-size: 12pt;
+                        margin: 0 0 5px 0;
+                        font-weight: normal;
+                    }
+                    p {
+                        opacity: 0.7;
+                        color: #dcdcdc;
+                        font-size: 10pt;
+                        margin: 0;
+
+                        > span {
+                            display: inline-block;
+
+                            &.points {
+                                border-radius: 2px;
+                                padding: 3px 3px 1px 3px;
+                                background-color: map-get($colors, primary);
+                                font-size: 9pt;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    padding: 0px 10px 5px 10px;
+                    font-size: 15pt;
+                    color: white;
+                    background-color: transparent;
+            
+                    box-shadow: none;
+                    -webkit-box-shadow: none;
+                }
+            }
+        }
+    .downloadsFooter{
+        font-size: 1rem;
+        padding-top: 10px;
+        color:  white;
+        text-align: center;
+    }
+    .playlist-Banner{
+        position: relative;
+        background-image: url('../assets/img/playlist-banner.png');
+        height: 20vh;
+        background-size: 100%;
+        .playlist-title{
+            z-index: 1;
+            position: absolute;
+            top: 27px;
+            left: 30px;
+            color: map-get($colors,light);
+        }
+    }
+    .playlist-Banner::after{
+        display: block;
+        position: relative;
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, black 120%);
+        height: 20vh;
+        width: 100%;
+        content: '';
+    }
+}

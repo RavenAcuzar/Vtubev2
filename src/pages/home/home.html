@@ -1,18 +1,128 @@
-<ion-header>
-  <ion-navbar>
+<ion-header no-border>
+  <ion-navbar no-border-bottom >
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title style="text-align: center">
+      <img src="assets/img/vt-header-logo.svg" style="height:40px;object-fit: scale-down;" />
+      <!--here goes vtube logo  -->
+    </ion-title>
+    <ion-buttons end>
+      <button *ngIf="isLogged" ion-button icon-only class="notifs" (click)="goToNotifs()"> 
+        <ion-icon name="ios-megaphone-outline"></ion-icon>
+        <ion-badge *ngIf="notifCount > 0">{{notifCount}}</ion-badge>
+      </button>
+      <button ion-button icon-only (click)="searchThing()"> 
+      <ion-icon name="ios-search-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="vidType" mode="md" >
+      <ion-segment-button value="freeVid" (click)="scrollToTop()">
+        {{'FREE'|translate}}
+      </ion-segment-button>
+      <ion-segment-button value="premVid" (click)="scrollToTop()">
+        {{'PREMIUM'|translate}}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<!--ADD IONIC INFINITE SCROLL IN CONTENT  -->
+<ion-content>
+  <div [ngSwitch]="vidType">
+    <ion-list *ngSwitchCase="'freeVid'">
+      <ion-refresher (ionRefresh)="doRefresh($event, 'free')" style="position: unset;">
+        <ion-refresher-content
+      pullingIcon="ios-arrow-down-outline"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+      </ion-refresher>
+    
+      <!--here goes vid cards  ng-repeat-->
+      <ion-card *ngFor="let vids of freeVids">
+        <div class="parent" (click)="playVideo(vids.id, vids.videoPrivacy)">
+          <img src="{{vids.image}}" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';" />
+          <div class="duration">
+            <ion-badge color="duration">{{vids.time}}</ion-badge>
+          </div>
+          <div class="vidpoints">
+            <ion-chip color="secondary">
+              <ion-icon name="star"></ion-icon>
+              <ion-label>{{vids.points}} {{'POINTS'|translate}}</ion-label>
+            </ion-chip>
+          </div>
+          <div class="vidplay">
+            <ion-icon name="play"></ion-icon>
+          </div>
+        </div>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="vids.channelImage" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';"/>
+          </ion-avatar>
+          <h2 [innerHTML]="vids.title" ></h2>
+          <p>{{vids.channelName}} <br> {{vids.views}} {{'VIEWS'|translate}}</p>
+          <p>
+            <ion-icon name="globe"></ion-icon>: {{vids.language}}</p>
+          <div item-end icon-only class="more" (click)="presentPopover($event, vids)">
+            <ion-icon class="more" name="md-more"></ion-icon>
+          </div>
+        </ion-item>
+      </ion-card>
+      <ion-infinite-scroll (ionInfinite)="loadMoreFree($event)" threshold="300px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-list>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-list *ngSwitchCase="'premVid'" no-lines>
+      <ion-refresher (ionRefresh)="doRefresh($event, 'premium')" style="position: unset;">
+        <ion-refresher-content
+      pullingIcon="ios-arrow-down-outline"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+      </ion-refresher>
+      <!--here goes vid cards ng-repeat -->
+      <ion-card *ngFor="let vids of premiumVids">
+        <ion-card-content no-padding (click)="playVideo(vids.id, vids.videoPrivacy)">
+          <div class="parent">
+            <img src="{{vids.image}}" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/PlaceholderVideo(273x180px).jpg';"/>
+            <div class="duration">
+              <ion-badge color="duration">{{vids.time}}</ion-badge>
+            </div>
+            <div class="vidpoints">
+              <ion-chip color="secondary">
+                <ion-icon name="star" color="primary"></ion-icon>
+                <ion-label>{{vids.points}} {{'POINTS'|translate}}</ion-label>
+              </ion-chip>
+            </div>
+            <div class="vidplay">
+              <ion-icon name="play"></ion-icon>
+            </div>
+          </div>
+        </ion-card-content>
+
+        <ion-item>
+          <ion-avatar item-start>
+           <img [src]="vids.channelImage" onerror="this.onerror=null;this.src='https://mobilevtube.the-v.net/Resources/vtube/images/UserAvatar(80x80px).jpg';" />
+          </ion-avatar>
+          <h2 >
+            <ion-icon name="lock"></ion-icon> <span [innerHTML]="vids.title"></span></h2>
+          <p>{{vids.channelName}} <br> {{vids.views}} {{'VIEWS'|translate}}</p>
+          <p>
+            <ion-icon name="globe"></ion-icon> : {{vids.language}}</p>
+          <div item-end icon-only (click)="presentPopover($event, vids)">
+            <ion-icon name="md-more"></ion-icon>
+          </div>
+        </ion-item>
+      </ion-card>
+      <ion-infinite-scroll (ionInfinite)="loadMorePrem($event)" threshold="300px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more videos...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-list>
+  </div>
 </ion-content>

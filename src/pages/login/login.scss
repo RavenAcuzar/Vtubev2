@@ -1,0 +1,66 @@
+page-login {
+    ion-header {
+        z-index: 20;
+
+        > ion-navbar {
+            > div.toolbar-background {
+                background: transparent !important;
+                border: none !important;
+            }
+            button{
+                color: map-get($colors, light) !important;
+            }
+        }
+    }
+    [class^="header"]::after{
+        background-image: none;
+    }
+
+    > ion-content {
+        background: url("../assets/img/loginbg.png") center / cover;
+        img{
+            position: absolute;
+            top: 10vh;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 13vh;
+            max-width: 300px;
+        }
+        .loginCred{
+            position: absolute;
+            width: 90%;
+            top: 0;
+            bottom: 0;
+            height: fit-content;
+            margin: auto;
+            >p{
+                margin-left: 40px ;
+                margin-right: 40px; 
+            }
+            >ion-item{
+            background-color: transparent !important;
+            input, >.item-inner .input-wrapper ion-label{
+                color: white!important;
+                } 
+            }
+            
+            >button{
+                border-radius: 13px;
+                width: 100%;
+                padding: 21px 0px;
+                margin-top: 30px;
+                background-color: map-get($colors , primary );
+            }
+        }
+        > div.scroll-content, > div.fixed-content {
+            margin-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+    .forgot{
+        padding: 10px 10px;
+        text-align: center;
+        color: #cccccc;
+    }
+}

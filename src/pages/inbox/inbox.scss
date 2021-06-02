@@ -1,0 +1,21 @@
+page-inbox {
+    ion-header [class^="toolbar-background"] {
+        background-color: map-get($colors,primary ) !important;
+    }
+    ion-header [class^="toolbar"], ion-navbar button {
+        color: map-get( $colors, light ) !important;
+    }
+    ion-note{
+        margin-top: 10px !important;
+        margin-right: 0 !important;
+        align-self: normal !important;
+        font-size: 12px;
+    }
+    .list-head{
+      border-bottom: 1px solid #cccccc !important;
+      background-color: transparent !important;
+      margin-bottom: 0 !important;
+      color: map-get($colors , light ) !important;
+    }
+    
+}

@@ -1,0 +1,12 @@
+
+export const IS_LOGGED_IN_KEY = 'ks92j4hhd'
+export const USER_DATA_KEY = 'sd2jek9er'
+export const USER_DATA_AUTH_KEY = 'dsahiOHHOhduiodhqcdhwi234udiohasd1346rfryr29c3et3y'
+export const USER_AUTH_REFRESH_KEY = 'dshaidhsaiuhdo3r3h7289ech2y91g121ge9'
+export const UPLOAD_DETAILS = 'nekj13'
+export const SQLITE_DB_NAME = 'data.db'
+export const APP_VER ='ffafsJSADKHDSAFDSGHUS3y4732dhw2a'
+export const MAILS_DATA = 'dsadvdshajdsfdsa'
+export const APP_LANG = 'dsanjdksbf'
+export const USER_INFO = '1nisa23nio3098ds'
+export const CHANNEL_WATCHER = 'fan123fdsn04742n210fj12'

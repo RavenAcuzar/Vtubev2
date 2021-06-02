@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "597577788490",
+    "firebase_url": "https://v-malaysia-pushnotif.firebaseio.com",
+    "project_id": "v-malaysia-pushnotif",
+    "storage_bucket": "v-malaysia-pushnotif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597577788490:android:643fc9d0a3f77a69",
+        "android_client_info": {
+          "package_name": "com.ionicapp.pushNotif"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597577788490-ocitgarfua95n0ms58crs25f8higk0d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7KLoeInpxpqjbeeJdjZCc90FTSazqJps"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597577788490:android:251dcb8f0af342a3",
+        "android_client_info": {
+          "package_name": "net.thev.vtube14284"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597577788490-ocitgarfua95n0ms58crs25f8higk0d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7KLoeInpxpqjbeeJdjZCc90FTSazqJps"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
