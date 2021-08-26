@@ -25,7 +25,7 @@ Setup the following requirements to your local machine.
 
 Create ionic starter app.
 ```
-ionic start VMalaysiaApp https://github.com/RavenAcuzar/Vtubev2/
+ionic start Vtube https://github.com/RavenAcuzar/Vtubev2/
 ```
 Initialize node packages.
 ```
